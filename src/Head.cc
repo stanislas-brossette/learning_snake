@@ -41,14 +41,10 @@ void Head::follow(const Point2D& newPos)
 
 void Head::grow(const Point2D& newPos)
 {
-    std::cout << "grow" << std::endl;
-    std::cout << "new node at pos " << pos_.x << ", " << pos_.y << std::endl;
     Node* newNode = new Node(pos_);
     newNode->setNext(next_);
     next_ = newNode;
     pos_ = newPos;
-    std::cout << "head at pos " << pos_.x << ", " << pos_.y << std::endl;
-    std::cout << "next at pos " << next_->pos().x << ", " << pos().y << std::endl;
 }
 
 void Head::setDirection(const direction& dir)

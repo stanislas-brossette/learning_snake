@@ -3,23 +3,8 @@
 #include "Enums.hh"
 #include "Map.hh"
 #include "Point2D.hh"
+#include "utils.hh"
 
-direction inputToDirection(int input)
-{
-    switch(input)
-    {
-        case 2:
-            return direction::down;
-        case 4:
-            return direction::left;
-        case 6:
-            return direction::right;
-        case 8:
-            return direction::up;
-        default:
-            return direction::none;
-    }
-}
 
 int main(void)
 {
@@ -29,13 +14,13 @@ int main(void)
     int input;
     while(snake.isAlive())
     {
+        std::vector<Point2D> allPoints = snake.getAllPoints();
+        map.update(allPoints);
+        map.print();
         std::cout << "enter input" << std::endl;
         std::cin >> input;
         snake.turn(inputToDirection(input));
         snake.move(map);
-        std::vector<Point2D> allPoints = snake.getAllPoints();
-        map.update(allPoints);
-        map.print();
     }
     std::cout << "GAME OVER" << std::endl;
 
