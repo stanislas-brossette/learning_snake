@@ -19,7 +19,15 @@ direction inputToDirection(int input)
     }
 }
 
-direction getInput()
+direction getInputLoop(direction& res)
+{
+    while(true)
+    {
+        getInput(res);
+    }
+}
+
+direction getInput(direction& res)
 {
     int ch = 0;
 
@@ -34,8 +42,7 @@ direction getInput()
     /* Ready to rumble! */
     //printw("Type a key. Use 'q' to quit\n");
     ch = getch();
-    direction res = direction::none;
-    std::cout << "ch: " <<  ch << std::endl;
+    res = direction::none;
     if( (char) ch == '4' || ch == 260 || (char) ch == 'a')
       res = direction::left;
     else if( (char) ch == '6' || ch == 261 || (char) ch == 'd')

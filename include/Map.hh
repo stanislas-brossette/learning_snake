@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <string>
 #include "Enums.hh"
 #include "Point2D.hh"
 
@@ -10,7 +11,7 @@ class Map
 {
 public:
     Map (int width, int height);
-    void print() const;
+    std::string print() const;
     virtual ~Map ();
     status get(const Point2D& p) const;
     void reset();

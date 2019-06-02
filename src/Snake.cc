@@ -18,7 +18,7 @@ bool Snake::isAlive() const
 
 void Snake::move(Map& map)
 {
-    std::cout << "move" << std::endl;
+    //std::cout << "move" << "\n\r";
     Point2D newHeadPos = head_.advance();
     status newTileStatus = map.get(newHeadPos);
     switch(newTileStatus)
@@ -27,7 +27,7 @@ void Snake::move(Map& map)
             head_.follow(newHeadPos);
             break;
         case status::apple:
-            std::cout << "eating apple" << std::endl;
+            //std::cout << "eating apple" << "\n\r";
             head_.grow(newHeadPos);
             map.changeAppleLocation();
             break;
@@ -37,38 +37,36 @@ void Snake::move(Map& map)
             head_.follow(newHeadPos);
             break;
     }
-    show();
 }
 
 void Snake::turn(direction newDir)
 {
-    std::cout << "turn ";
+    //std::cout << "turn ";
     switch(newDir)
     {
         case direction::right :
-            std::cout << "right" << std::endl;
+            //std::cout << "right" << "\n\r";
             if(head_.getDirection() != direction::left)
                 head_.setDirection(newDir);
             break;
         case direction::left :
-            std::cout << "left" << std::endl;
+            //std::cout << "left" << "\n\r";
             if(head_.getDirection() != direction::right)
                 head_.setDirection(newDir);
             break;
         case direction::up :
-            std::cout << "up" << std::endl;
+            //std::cout << "up" << "\n\r";
             if(head_.getDirection() != direction::down)
                 head_.setDirection(newDir);
             break;
         case direction::down :
-            std::cout << "down" << std::endl;
+            //std::cout << "down" << "\n\r";
             if(head_.getDirection() != direction::up)
                 head_.setDirection(newDir);
             break;
         case direction::none:
             break;
-        default:
-            std::cout << "ERROR: wrong way" << std::endl;
+            //std::cout << "ERROR: wrong way" << "\n\r";
     }
 }
 

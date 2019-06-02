@@ -28,7 +28,7 @@ void Node::print()
     if(next_)
         next_->print();
     else
-        std::cout << std::endl;
+        std::cout << "\n\r";
 
 }
 

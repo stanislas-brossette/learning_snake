@@ -11,5 +11,5 @@ public:
   Game ();
   virtual ~Game ();
   void runStepByStep();
-  void runContinuous();
+  void runContinuous(double frequency);
 };

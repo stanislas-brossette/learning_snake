@@ -35,11 +35,12 @@ void Map::set(Point2D p, status s)
     content_[p.x][p.y] = s;
 }
 
-void Map::print() const
+std::string Map::print() const
 {
+    std::string mapString = "";
     for (int j = 0; j < width_; j++)
-        std::cout << "_";
-    std::cout << std::endl;
+        mapString += "_";
+    mapString += "\n\r";
     for (int i = 0; i < height_; i++)
     {
         for (int j = 0; j < width_; j++)
@@ -47,27 +48,28 @@ void Map::print() const
             switch(content_[i][j])
             {
                 case status::obstacle:
-                    std::cout << "X";
+                    mapString += "X";
                     break;
                 case status::empty:
-                    std::cout << " ";
+                    mapString += " ";
                     break;
                 case status::apple:
-                    std::cout << "a";
+                    mapString += "a";
                     break;
                 case status::snake:
-                    std::cout << "s";
+                    mapString += "s";
                     break;
                 default:
-                    std::cout << "?";
+                    mapString += "?";
                     break;
             }
         }
-        std::cout << std::endl;
+        mapString += "\n\r";
     }
     for (int j = 0; j < width_; j++)
-        std::cout << "_";
-    std::cout << std::endl;
+        mapString += "_";
+    mapString += "\n\r";
+    return mapString;
 }
 
 status Map::get(const Point2D& p) const
@@ -84,7 +86,6 @@ void Map::update(std::vector<Point2D>& s)
 
 void Map::changeAppleLocation()
 {
-    std::cout << "ChangeAppleLocation" << std::endl;
     int i = 0;
     int j = 0;
     while(true)
