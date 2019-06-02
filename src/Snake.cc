@@ -18,7 +18,6 @@ bool Snake::isAlive() const
 
 void Snake::move(Map& map)
 {
-    //std::cout << "move" << "\n\r";
     Point2D newHeadPos = head_.advance();
     status newTileStatus = map.get(newHeadPos);
     switch(newTileStatus)
@@ -27,9 +26,8 @@ void Snake::move(Map& map)
             head_.follow(newHeadPos);
             break;
         case status::apple:
-            //std::cout << "eating apple" << "\n\r";
             head_.grow(newHeadPos);
-            map.changeAppleLocation();
+            map.changeAppleLocation(newHeadPos);
             break;
         case status::obstacle:
         case status::snake:
@@ -41,32 +39,26 @@ void Snake::move(Map& map)
 
 void Snake::turn(direction newDir)
 {
-    //std::cout << "turn ";
     switch(newDir)
     {
         case direction::right :
-            //std::cout << "right" << "\n\r";
             if(head_.getDirection() != direction::left)
                 head_.setDirection(newDir);
             break;
         case direction::left :
-            //std::cout << "left" << "\n\r";
             if(head_.getDirection() != direction::right)
                 head_.setDirection(newDir);
             break;
         case direction::up :
-            //std::cout << "up" << "\n\r";
             if(head_.getDirection() != direction::down)
                 head_.setDirection(newDir);
             break;
         case direction::down :
-            //std::cout << "down" << "\n\r";
             if(head_.getDirection() != direction::up)
                 head_.setDirection(newDir);
             break;
         case direction::none:
             break;
-            //std::cout << "ERROR: wrong way" << "\n\r";
     }
 }
 

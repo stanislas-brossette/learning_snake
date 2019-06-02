@@ -6,7 +6,7 @@ int main(void)
 {
     Game game;
     //game.runStepByStep();
-    game.runContinuous(0.1);
+    game.runContinuous();
 
     return 0;
 }

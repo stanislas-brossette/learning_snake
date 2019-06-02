@@ -10,18 +10,20 @@
 class Map
 {
 public:
-    Map (int width, int height);
+    Map (int width, int height, int nApples);
     std::string print() const;
     virtual ~Map ();
     status get(const Point2D& p) const;
+    int getAppleIndex(Point2D loc) const;
     void reset();
     void set(Point2D p, status s);
     void update(std::vector<Point2D>& snake);
-    void changeAppleLocation();
+    void changeAppleLocation(Point2D loc);
+    void changeAppleLocation(int index);
 
 private:
     int width_;
     int height_;
     std::vector<std::vector<status> > content_;
-    Point2D apple_;
+    std::vector<Point2D> apples_;
 };

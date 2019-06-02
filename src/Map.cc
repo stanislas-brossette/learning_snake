@@ -1,13 +1,15 @@
 #include "Map.hh"
 
-Map::Map (int width, int height)
+Map::Map (int width, int height, int nApples)
     : width_(width),
       height_(height),
-      apple_(width/2, height/2)
+      apples_(nApples)
 {
     content_.resize(height_);
     for (int i = 0; i < height_; i++)
         content_[i].resize(width_);
+    for (int i = 0; i < apples_.size(); ++i)
+        changeAppleLocation(i);
     reset();
 }
 
@@ -27,7 +29,10 @@ void Map::reset()
                 content_[i][j] = status::empty;
         }
     }
-    content_[apple_.x][apple_.y] = status::apple;
+    for (int i = 0; i < apples_.size(); ++i)
+    {
+        content_[apples_[i].x][apples_[i].y] = status::apple;
+    }
 }
 
 void Map::set(Point2D p, status s)
@@ -84,19 +89,39 @@ void Map::update(std::vector<Point2D>& s)
         set(s[i], status::snake);
 }
 
-void Map::changeAppleLocation()
+int Map::getAppleIndex(Point2D loc) const
 {
+    for (int i = 0; i < apples_.size(); ++i)
+    {
+        if(apples_[i].x == loc.x && apples_[i].y == loc.y)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void Map::changeAppleLocation(int index)
+{
+    if(index == -1)
+        return;
     int i = 0;
     int j = 0;
     while(true)
     {
-        i = std::rand()%width_;
-        j = std::rand()%height_;
+        i = std::rand()%height_;
+        j = std::rand()%width_;
         if(content_[i][j] == status::empty)
         {
-            apple_.x = i;
-            apple_.y = j;
+            apples_[index].x = i;
+            apples_[index].y = j;
             return;
         }
     }
+}
+
+void Map::changeAppleLocation(Point2D loc)
+{
+    int index = getAppleIndex(loc);
+    changeAppleLocation(index);
 }

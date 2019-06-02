@@ -3,6 +3,10 @@
 #include <ctime>
 
 Game::Game()
+  : snake_(direction::right, Point2D(5,5)),
+    map_(40,30,2),
+    clock_(),
+    frequency_(0.08)
 {
 }
 
@@ -12,46 +16,37 @@ Game::~Game()
 
 void Game::runStepByStep()
 {
-    Snake snake(direction::right, Point2D(5,5));
-    Map map(20,20);
     direction input;
-    while(snake.isAlive())
+    while(snake_.isAlive())
     {
-        std::vector<Point2D> allPoints = snake.getAllPoints();
-        map.update(allPoints);
-        map.print();
+        std::vector<Point2D> allPoints = snake_.getAllPoints();
+        map_.update(allPoints);
+        std::cout << map_.print() << "\n\r";
         getInput(input);
-        snake.turn(input);
-        snake.move(map);
+        snake_.turn(input);
+        snake_.move(map_);
     }
     std::cout << "GAME OVER" << std::endl;
 }
 
-void Game::runContinuous(double frequency)
+void Game::runContinuous()
 {
-  std::clock_t start;
-  start = std::clock();
-  double duration;
+  map_.print();
   direction input;
   std::thread inputThread(getInputLoop, std::ref(input));
 
-  Snake snake(direction::right, Point2D(5,5));
-  Map map(40,40);
-  while(snake.isAlive())
+  while(snake_.isAlive())
   {
-      duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
-      if(duration > frequency)
+      if(clock_.duration() > frequency_)
       {
-          start = std::clock();
-          std::vector<Point2D> allPoints = snake.getAllPoints();
-          map.update(allPoints);
+          clock_.reset();
+          std::vector<Point2D> allPoints = snake_.getAllPoints();
+          map_.update(allPoints);
 
-          std::string mapString;
-          mapString = map.print();
-          std::cout << mapString << std::endl;
+          std::cout << map_.print() << "\n\r";
 
-          snake.turn(input);
-          snake.move(map);
+          snake_.turn(input);
+          snake_.move(map_);
       }
   }
   std::cout << "GAME OVER" << std::endl;
