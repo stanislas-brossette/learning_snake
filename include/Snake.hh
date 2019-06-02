@@ -11,7 +11,7 @@ public:
     Snake (const direction& dir, const Point2D& pos);
     virtual ~Snake ();
     bool isAlive() const;
-    void move(const Map& map);
+    void move(Map& map);
     void turn(direction dir);
     void show();
     std::vector<Point2D> getAllPoints();

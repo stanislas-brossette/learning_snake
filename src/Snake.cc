@@ -16,7 +16,7 @@ bool Snake::isAlive() const
     return alive_;
 }
 
-void Snake::move(const Map& map)
+void Snake::move(Map& map)
 {
     std::cout << "move" << std::endl;
     Point2D newHeadPos = head_.advance();
@@ -28,8 +28,8 @@ void Snake::move(const Map& map)
             break;
         case status::apple:
             std::cout << "eating apple" << std::endl;
-            newHeadPos.print();
             head_.grow(newHeadPos);
+            map.changeAppleLocation();
             break;
         case status::obstacle:
         case status::snake:

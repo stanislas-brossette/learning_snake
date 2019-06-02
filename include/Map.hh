@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <random>
 #include "Enums.hh"
 #include "Point2D.hh"
 
@@ -15,6 +16,7 @@ public:
     void reset();
     void set(Point2D p, status s);
     void update(std::vector<Point2D>& snake);
+    void changeAppleLocation();
 
 private:
     int width_;

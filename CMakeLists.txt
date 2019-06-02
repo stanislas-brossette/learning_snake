@@ -7,3 +7,7 @@ include_directories(include)
 file(GLOB SOURCES "src/*.cc")
 
 add_executable(learning_snake ${SOURCES})
+
+find_package(Curses REQUIRED)
+include_directories(${CURSES_INCLUDE_DIRS})
+target_link_libraries(learning_snake ${CURSES_LIBRARIES})

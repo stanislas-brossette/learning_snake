@@ -81,3 +81,21 @@ void Map::update(std::vector<Point2D>& s)
     for (int i = 0; i < s.size(); i++)
         set(s[i], status::snake);
 }
+
+void Map::changeAppleLocation()
+{
+    std::cout << "ChangeAppleLocation" << std::endl;
+    int i = 0;
+    int j = 0;
+    while(true)
+    {
+        i = std::rand()%width_;
+        j = std::rand()%height_;
+        if(content_[i][j] == status::empty)
+        {
+            apple_.x = i;
+            apple_.y = j;
+            return;
+        }
+    }
+}
