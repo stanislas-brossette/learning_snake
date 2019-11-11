@@ -1,4 +1,6 @@
 #include <iostream>
+#include <SDL.h>
+
 #include "utils.hh"
 #include "Enums.hh"
 
@@ -25,6 +27,31 @@ direction getInputLoop(direction& res)
     {
         getInput(res);
     }
+}
+
+direction getInputLoopSDL(direction& res)
+{
+  SDL_Event event;
+  while(true)
+  {
+    while(SDL_PollEvent(&event))
+    {
+      if(event.type == SDL_KEYDOWN)
+      {
+        std::string keyName = SDL_GetKeyName(event.key.keysym.sym);
+        if(keyName == "Down" or keyName == "J")
+            res = direction::down;
+        else if(keyName == "Right" or keyName == "L")
+            res = direction::right;
+        else if(keyName == "Up" or keyName == "K")
+            res = direction::up;
+        else if(keyName == "Left" or keyName == "H")
+            res = direction::left;
+        else
+            res = direction::none;
+      }
+    }
+  }
 }
 
 direction getInput(direction& res)

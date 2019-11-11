@@ -4,7 +4,7 @@
 
 Game::Game()
   : snake_(direction::right, Point2D(5,5)),
-    map_(40,40,2),
+    map_(40,40,3),
     clock_(),
     frequency_(0.18),
     window_(map_)
@@ -22,20 +22,21 @@ void Game::runStepByStep()
     {
         std::vector<Point2D> allPoints = snake_.getAllPoints();
         map_.update(allPoints);
-        window_.render(map_);
+        window_.render(map_, allPoints.size());
         //std::cout << map_.print() << "\n\r";
         getInput(input);
         snake_.turn(input);
         snake_.move(map_);
     }
     std::cout << "GAME OVER" << std::endl;
+    return;
 }
 
 void Game::runContinuous()
 {
   map_.print();
-  direction input;
-  std::thread inputThread(getInputLoop, std::ref(input));
+  direction input = direction::down;
+  std::thread inputThread(getInputLoopSDL, std::ref(input));
 
   while(snake_.isAlive())
   {
@@ -44,7 +45,7 @@ void Game::runContinuous()
           clock_.reset();
           std::vector<Point2D> allPoints = snake_.getAllPoints();
           map_.update(allPoints);
-          window_.render(map_);
+          window_.render(map_, allPoints.size());
 
           //std::cout << map_.print() << "\n\r";
 
@@ -53,4 +54,5 @@ void Game::runContinuous()
       }
   }
   std::cout << "GAME OVER" << std::endl;
+  return;
 }

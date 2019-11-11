@@ -6,3 +6,4 @@
 direction inputToDirection(int input);
 direction getInput(direction& input);
 direction getInputLoop(direction& input);
+direction getInputLoopSDL(direction& input);

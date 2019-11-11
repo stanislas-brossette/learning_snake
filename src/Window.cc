@@ -5,12 +5,13 @@
 Window::Window(const Map& map):
   window_(nullptr),
   renderer_(nullptr),
-  pixelSize_(20)
+  pixelSize_(20),
+  scoreRect_({0, pixelSize_*map.height(), 100, 20})
 {
 	Uint32 flags = SDL_WINDOW_SHOWN;
 
 	// Set up window
-	window_ = SDL_CreateWindow("learning_snake", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, pixelSize_*map.width(), pixelSize_*map.height(), flags);
+	window_ = SDL_CreateWindow("learning_snake", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, pixelSize_*map.width(), pixelSize_*map.height() + 20, flags);
 	if(!window_) {
 		std::cerr << SDL_GetError() << std::endl;
 	}
@@ -22,11 +23,13 @@ Window::Window(const Map& map):
 	if(renderer_ == nullptr) {
 		std::cerr << SDL_GetError() << std::endl;
 	}
+  TTF_Init();
+  const char* fontPath = "/home/stanislas/profiles/devel/src/learning_snake/assets/arimo_regular.ttf";
+  font_ = TTF_OpenFont(fontPath, 12);
 
-  std::cout << "Window created" << std::endl;
 }
 
-void Window::render(const Map& map)
+void Window::render(const Map& map, size_t score)
 {
 	// Clear screen
 	SDL_RenderClear(renderer_);
@@ -57,6 +60,14 @@ void Window::render(const Map& map)
 
   SDL_SetRenderDrawColor(renderer_, 0x00, 0x00, 0x00, 0x00);
 
+  // Render score
+  TTF_Init();
+  SDL_Color textColor = {255, 0, 255, 0};
+  std::string text_s = "Score: " + std::to_string(score);
+  const char* text_c = text_s.c_str();
+  SDL_Surface* surface = TTF_RenderText_Solid(font_, text_c, textColor);
+  SDL_Texture* texture1 = SDL_CreateTextureFromSurface(renderer_, surface);
+  SDL_RenderCopy(renderer_, texture1, NULL, &scoreRect_);
 	// Render to screen
 	SDL_RenderPresent(renderer_);
 }
