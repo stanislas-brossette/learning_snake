@@ -20,6 +20,9 @@ public:
     void update(std::vector<Point2D>& snake);
     void changeAppleLocation(Point2D loc);
     void changeAppleLocation(int index);
+    int width() const {return width_;};
+    int height() const {return height_;};
+    std::vector<std::vector<status> > content() {return content_;};
 
 private:
     int width_;

@@ -5,6 +5,7 @@
 #include "Point2D.hh"
 #include "utils.hh"
 #include "Clock.hh"
+#include "Window.hh"
 
 class Game
 {
@@ -18,5 +19,6 @@ private:
   Snake snake_;
   direction input_;
   Clock clock_;
+  Window window_;
   double frequency_;
 };
