@@ -1,5 +1,6 @@
 #pragma once
 #include "Snake.hh"
+#include "agents/Agent.hh"
 #include "Enums.hh"
 #include "Map.hh"
 #include "Point2D.hh"
@@ -14,6 +15,7 @@ public:
   virtual ~Game ();
   void runStepByStep();
   void runContinuous();
+  size_t runAgent(Agent* agent);
 private:
   Map map_;
   Snake snake_;

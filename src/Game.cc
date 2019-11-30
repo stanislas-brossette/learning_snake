@@ -3,8 +3,8 @@
 #include <ctime>
 
 Game::Game()
-  : snake_(direction::right, Point2D(5,5)),
-    map_(40,40,3),
+  : snake_(direction::right, Point2D(20,20)),
+    map_(40,40,2),
     clock_(),
     frequency_(0.18),
     window_(map_)
@@ -34,7 +34,6 @@ void Game::runStepByStep()
 
 void Game::runContinuous()
 {
-  map_.print();
   direction input = direction::down;
   bool exitThread = false;
   std::thread inputThread(getInputLoopSDL, std::ref(input), std::ref(exitThread));
@@ -59,4 +58,28 @@ void Game::runContinuous()
   std::cout << "GAME OVER\npress enter to exit" << std::endl;
   std::cin.get();
   return;
+}
+
+size_t Game::runAgent(Agent* agent)
+{
+    std::cout << "agent: " << agent->name << std::endl;
+    direction input;
+    size_t score = 0;
+    frequency_ = 0.1;
+    while(snake_.isAlive())
+    {
+        if(clock_.duration() > frequency_)
+        {
+            clock_.reset();
+            std::vector<Point2D> allPoints = snake_.getAllPoints();
+            map_.update(allPoints);
+            score = allPoints.size();
+            window_.render(map_, score);
+            input = agent->decide(map_, snake_);
+            snake_.turn(input);
+            snake_.move(map_);
+        }
+    }
+    std::cout << "Agent scored: " << score << std::endl;
+    return score;
 }

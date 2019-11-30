@@ -1,12 +1,17 @@
 #include <iostream>
 #include "Game.hh"
+#include "agents/Agent.hh"
 
 
 int main(void)
 {
     Game game;
     //game.runStepByStep();
-    game.runContinuous();
+    //game.runContinuous();
+
+    Agent* agent = new DirectAgent();
+    game.runAgent(agent);
+    delete agent;
 
     return 0;
 }

@@ -6,7 +6,7 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 include_directories(include)
 #set(SOURCES src/main.cc src/Snake.cc)
 
-file(GLOB SOURCES "src/*.cc")
+file(GLOB SOURCES "src/*.cc" "src/agents/*.cc")
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 

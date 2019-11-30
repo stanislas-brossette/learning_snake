@@ -15,6 +15,8 @@ public:
     void turn(direction dir);
     void show();
     std::vector<Point2D> getAllPoints();
+    Head head(){return head_;};
+
 
 private:
     bool alive_;

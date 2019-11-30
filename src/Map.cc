@@ -8,16 +8,16 @@ Map::Map (int width, int height, int nApples)
     content_.resize(height_);
     for (int i = 0; i < height_; i++)
         content_[i].resize(width_);
+    resetObstacles();
     for (int i = 0; i < apples_.size(); ++i)
         changeAppleLocation(i);
-    reset();
 }
 
 Map::~Map()
 {
 }
 
-void Map::reset()
+void Map::resetObstacles()
 {
     for (int i = 0; i < height_; i++)
     {
@@ -29,10 +29,20 @@ void Map::reset()
                 content_[i][j] = status::empty;
         }
     }
+}
+
+void Map::resetApples()
+{
     for (int i = 0; i < apples_.size(); ++i)
     {
         content_[apples_[i].x][apples_[i].y] = status::apple;
     }
+}
+
+void Map::reset()
+{
+  resetObstacles();
+  resetApples();
 }
 
 void Map::set(Point2D p, status s)
@@ -115,9 +125,10 @@ void Map::changeAppleLocation(int index)
         {
             apples_[index].x = i;
             apples_[index].y = j;
-            return;
+            break;
         }
     }
+    resetApples();
 }
 
 void Map::changeAppleLocation(Point2D loc)

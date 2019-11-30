@@ -16,6 +16,8 @@ public:
     status get(const Point2D& p) const;
     int getAppleIndex(Point2D loc) const;
     void reset();
+    void resetObstacles();
+    void resetApples();
     void set(Point2D p, status s);
     void update(std::vector<Point2D>& snake);
     void changeAppleLocation(Point2D loc);
@@ -23,6 +25,7 @@ public:
     int width() const {return width_;};
     int height() const {return height_;};
     std::vector<std::vector<status> > content() {return content_;};
+    std::vector<Point2D> apples() {return apples_;};
 
 private:
     int width_;
