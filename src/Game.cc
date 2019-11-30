@@ -36,7 +36,8 @@ void Game::runContinuous()
 {
   map_.print();
   direction input = direction::down;
-  std::thread inputThread(getInputLoopSDL, std::ref(input));
+  bool exitThread = false;
+  std::thread inputThread(getInputLoopSDL, std::ref(input), std::ref(exitThread));
 
   while(snake_.isAlive())
   {
@@ -53,6 +54,9 @@ void Game::runContinuous()
           snake_.move(map_);
       }
   }
-  std::cout << "GAME OVER" << std::endl;
+  exitThread = true;
+  inputThread.join();
+  std::cout << "GAME OVER\npress enter to exit" << std::endl;
+  std::cin.get();
   return;
 }

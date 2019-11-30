@@ -76,5 +76,4 @@ Window::~Window()
 {
 	SDL_DestroyRenderer(renderer_);
 	SDL_DestroyWindow(window_);
-  std::cout << "Window closed" << std::endl;
 }

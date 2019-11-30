@@ -29,10 +29,10 @@ direction getInputLoop(direction& res)
     }
 }
 
-direction getInputLoopSDL(direction& res)
+direction getInputLoopSDL(direction& res, bool& exit)
 {
   SDL_Event event;
-  while(true)
+  while(not exit)
   {
     while(SDL_PollEvent(&event))
     {
