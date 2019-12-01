@@ -109,6 +109,7 @@ direction astar(Map& map, Point2D start, Point2D target)
       { 
         AstarNode* nodeToInsert = new AstarNode(neighbors[i], target, currentNode->astarNode_);
         nodesToVisit.insertSorted(nodeToInsert);
+        visitedNodes.push_back(neighbors[i]);
         if(neighbors[i] == target)
         {
           targetReached = true;

@@ -81,5 +81,7 @@ size_t Game::runAgent(Agent* agent)
         }
     }
     std::cout << "Agent scored: " << score << std::endl;
+    std::cout << "GAME OVER\npress enter to exit" << std::endl;
+    std::cin.get();
     return score;
 }
