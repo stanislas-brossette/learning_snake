@@ -9,7 +9,7 @@ int main(void)
     //game.runStepByStep();
     //game.runContinuous();
 
-    Agent* agent = new DirectAgent();
+    Agent* agent = new AStarAgent();
     game.runAgent(agent);
     delete agent;
 

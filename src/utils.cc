@@ -106,3 +106,13 @@ direction getInput(direction& res)
     endwin();
     return res;
 }
+
+bool pointInVector(std::vector<Point2D>& v, Point2D& p)
+{
+  for (size_t i = 0; i < v.size(); i++)
+  {
+    if(p.x == v[i].x and p.y == v[i].y)
+      return true;
+  }
+  return false;
+}
