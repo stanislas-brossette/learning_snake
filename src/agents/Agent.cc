@@ -1,3 +1,4 @@
+#include <bits/stdc++.h>
 #include "agents/Agent.hh"
 
 Agent::Agent()
@@ -55,22 +56,54 @@ AStarAgent::AStarAgent()
   name = "AStarAgent";
 }
 
+bool compareApples(Point2D p0, Point2D p1)
+{
+  if (p0.x*p0.x+p0.y*p0.y < p1.x*p1.x+p1.y*p1.y)
+    return true;
+  else
+    return false;
+}
+
 direction AStarAgent::decide(Map& map, Snake& snake)
 {
     //Find closest apple
     std::vector<Point2D> apples = map.apples();
     Point2D headPos = snake.head().pos();
-    Point2D closestApple;
-    double minDist = -1;
-    for (size_t i = 0; i < apples.size(); ++i)
+    //Point2D closestApple;
+    //double minDist = -1;
+    //for (size_t i = 0; i < apples.size(); ++i)
+    //{
+    //    double d = headPos.squaredDist(apples[i]);
+    //    if( minDist < 0 or d < minDist)
+    //    {
+    //        minDist = d;
+    //        closestApple = apples[i];
+    //    }
+    //}
+
+    //// Sort apples
+    std::vector<Point2D> headToApples = apples;
+    for (size_t i = 0; i < headToApples.size(); i++)
     {
-        double d = headPos.squaredDist(apples[i]);
-        if( minDist < 0 or d < minDist)
-        {
-            minDist = d;
-            closestApple = apples[i];
-        }
+      headToApples[i].x -= headPos.x;
+      headToApples[i].y -= headPos.y;
     }
-    direction dir = astar(map, headPos, closestApple); 
-    return dir;
+
+    std::sort(headToApples.begin(), headToApples.end(), compareApples);
+
+    for (size_t i = 0; i < headToApples.size(); i++)
+    {
+      headToApples[i].x += headPos.x;
+      headToApples[i].y += headPos.y;
+    }
+
+    direction dir = direction::none;
+    for (size_t i = 0; i < headToApples.size(); i++)
+    {
+      dir = astar(map, headPos, headToApples[i]);
+      if(dir != direction::none)
+        return dir;
+    }
+
+    return direction::none;
 }

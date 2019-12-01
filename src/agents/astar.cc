@@ -131,4 +131,5 @@ direction astar(Map& map, Point2D start, Point2D target)
       }
     }
   }
+  return direction::none;
 }
