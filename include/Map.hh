@@ -14,6 +14,7 @@ public:
     std::string print() const;
     virtual ~Map ();
     status get(const Point2D& p) const;
+    bool isFree(const Point2D& p) const;
     int getAppleIndex(Point2D loc) const;
     void reset();
     void resetObstacles();
@@ -26,6 +27,7 @@ public:
     int height() const {return height_;};
     std::vector<std::vector<status> > content() {return content_;};
     std::vector<Point2D> apples() {return apples_;};
+    size_t computeFreeArea(const Point2D& p) const;
 
 private:
     int width_;

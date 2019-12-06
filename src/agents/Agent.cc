@@ -105,5 +105,25 @@ direction AStarAgent::decide(Map& map, Snake& snake)
         return dir;
     }
 
-    return direction::none;
+    // astar failed; backup strat
+    Point2D pLeft(headPos.x, headPos.y-1);
+    Point2D pRight(headPos.x, headPos.y+1);
+    Point2D pDown(headPos.x+1, headPos.y);
+    Point2D pUp(headPos.x-1, headPos.y);
+
+    size_t nLeft = map.computeFreeArea(pLeft);
+    size_t nRight = map.computeFreeArea(pRight);
+    size_t nUp = map.computeFreeArea(pUp);
+    size_t nDown = map.computeFreeArea(pDown);
+
+    if(nUp >= nRight and nUp >= nLeft and nUp >= nDown)
+        return direction::up;
+    else if(nDown >= nRight and nDown >= nLeft and nDown >= nUp)
+        return direction::down;
+    else if(nRight >= nUp and nRight >= nLeft and nRight >= nDown)
+        return direction::right;
+    else if(nLeft >= nRight and nLeft >= nUp and nLeft >= nDown)
+        return direction::left;
+    else
+        return direction::none;
 }

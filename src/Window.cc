@@ -8,21 +8,21 @@ Window::Window(const Map& map):
   pixelSize_(20),
   scoreRect_({0, pixelSize_*map.height(), 100, 20})
 {
-	Uint32 flags = SDL_WINDOW_SHOWN;
+    Uint32 flags = SDL_WINDOW_SHOWN;
 
-	// Set up window
-	window_ = SDL_CreateWindow("learning_snake", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, pixelSize_*map.width(), pixelSize_*map.height() + 20, flags);
-	if(!window_) {
-		std::cerr << SDL_GetError() << std::endl;
-	}
+    // Set up window
+    window_ = SDL_CreateWindow("learning_snake", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, pixelSize_*map.width(), pixelSize_*map.height() + 20, flags);
+    if(!window_) {
+        std::cerr << SDL_GetError() << std::endl;
+    }
 
-	// Set up renderer
-	flags = 0;
-	flags |= SDL_RENDERER_ACCELERATED;
-	renderer_ = SDL_CreateRenderer(window_, -1, flags);
-	if(renderer_ == nullptr) {
-		std::cerr << SDL_GetError() << std::endl;
-	}
+    // Set up renderer
+    flags = 0;
+    flags |= SDL_RENDERER_ACCELERATED;
+    renderer_ = SDL_CreateRenderer(window_, -1, flags);
+    if(renderer_ == nullptr) {
+        std::cerr << SDL_GetError() << std::endl;
+    }
   TTF_Init();
   const char* fontPath = "/home/stanislas/profiles/devel/src/learning_snake/assets/arimo_regular.ttf";
   font_ = TTF_OpenFont(fontPath, 12);
@@ -31,8 +31,8 @@ Window::Window(const Map& map):
 
 void Window::render(const Map& map, size_t score)
 {
-	// Clear screen
-	SDL_RenderClear(renderer_);
+  // Clear screen
+  SDL_RenderClear(renderer_);
   SDL_Rect fillRect_;
   for(int i = 0; i < map.height(); ++i)
   {
@@ -74,6 +74,6 @@ void Window::render(const Map& map, size_t score)
 
 Window::~Window()
 {
-	SDL_DestroyRenderer(renderer_);
-	SDL_DestroyWindow(window_);
+  SDL_DestroyRenderer(renderer_);
+  SDL_DestroyWindow(window_);
 }

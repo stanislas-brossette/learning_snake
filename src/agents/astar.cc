@@ -105,7 +105,7 @@ direction astar(Map& map, Point2D start, Point2D target)
     for (size_t i = 0; i < neighbors.size(); i++)
     {
       if(not pointInVector(visitedNodes, neighbors[i])
-          and (map.get(neighbors[i]) == status::empty or map.get(neighbors[i]) == status::apple))
+          and map.isFree(neighbors[i]))
       { 
         AstarNode* nodeToInsert = new AstarNode(neighbors[i], target, currentNode->astarNode_);
         nodesToVisit.insertSorted(nodeToInsert);

@@ -1,4 +1,5 @@
 #include "Map.hh"
+#include "utils.hh"
 
 Map::Map (int width, int height, int nApples)
     : width_(width),
@@ -90,6 +91,49 @@ std::string Map::print() const
 status Map::get(const Point2D& p) const
 {
     return content_.at(p.x).at(p.y);
+}
+
+bool Map::isFree(const Point2D& p) const
+{
+    status s = content_.at(p.x).at(p.y);
+    if(s == status::empty or s == status::apple)
+        return true;
+    else
+        return false;
+}
+
+size_t Map::computeFreeArea(const Point2D& p0) const
+{
+  std::vector<Point2D> visitedNodes;
+  if(isFree(p0))
+      visitedNodes.push_back(p0);
+  else
+      return 0;
+
+  size_t i = 0;
+  while(i < visitedNodes.size())
+  {
+      Point2D p = visitedNodes[i];
+      std::vector<Point2D> neighbors;
+      Point2D pUp(p.x,p.y-1);
+      Point2D pDown(p.x,p.y+1);
+      Point2D pRight(p.x+1,p.y);
+      Point2D pLeft(p.x-1,p.y);
+      neighbors.push_back(pUp);
+      neighbors.push_back(pDown);
+      neighbors.push_back(pRight);
+      neighbors.push_back(pLeft);
+      for (size_t i = 0; i < neighbors.size(); i++)
+      {
+        if(not pointInVector(visitedNodes, neighbors[i])
+            and isFree(neighbors[i]))
+        {
+          visitedNodes.push_back(neighbors[i]);
+        }
+      }
+      ++i;
+  }
+  return visitedNodes.size();
 }
 
 void Map::update(std::vector<Point2D>& s)
