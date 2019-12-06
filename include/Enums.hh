@@ -14,5 +14,6 @@ enum status
     empty,
     obstacle,
     apple,
-    snake
+    snake,
+    snake_head
 };

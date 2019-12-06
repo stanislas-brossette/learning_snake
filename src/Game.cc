@@ -4,7 +4,7 @@
 
 Game::Game()
   : snake_(direction::right, Point2D(5,5)),
-    map_(90,50,30),
+    map_(90,50,27),
     clock_(),
     frequency_(0.18),
     window_(map_)

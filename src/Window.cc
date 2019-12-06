@@ -50,6 +50,9 @@ void Window::render(const Map& map, size_t score)
         case snake:
           SDL_SetRenderDrawColor(renderer_, 0x00, 0xFF, 0x00, 0xFF);
           break;
+        case snake_head:
+          SDL_SetRenderDrawColor(renderer_, 0xFF, 0xFF, 0x00, 0xFF);
+          break;
         default:
           SDL_SetRenderDrawColor(renderer_, 0xFF, 0xFF, 0xFF, 0xFF);
           break;

@@ -75,6 +75,9 @@ std::string Map::print() const
                 case status::snake:
                     mapString += "s";
                     break;
+                case status::snake_head:
+                    mapString += "S";
+                    break;
                 default:
                     mapString += "?";
                     break;
@@ -139,8 +142,12 @@ size_t Map::computeFreeArea(const Point2D& p0) const
 void Map::update(std::vector<Point2D>& s)
 {
     reset();
-    for (int i = 0; i < s.size(); i++)
-        set(s[i], status::snake);
+    if(s.size() >= 1)
+    {
+      set(s[0], status::snake_head);
+      for (int i = 1; i < s.size(); i++)
+          set(s[i], status::snake);
+    }
 }
 
 int Map::getAppleIndex(Point2D loc) const
