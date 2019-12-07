@@ -1,4 +1,3 @@
-#include <bits/stdc++.h>
 #include "agents/Agent.hh"
 
 Agent::Agent()
@@ -56,60 +55,28 @@ AStarAgent::AStarAgent()
   name = "AStarAgent";
 }
 
-bool compareApples(Point2D p0, Point2D p1)
-{
-  if (p0.x*p0.x+p0.y*p0.y < p1.x*p1.x+p1.y*p1.y)
-    return true;
-  else
-    return false;
-}
-
 direction AStarAgent::decide(Map& map, Snake& snake)
 {
-    //Find closest apple
+    // Find closest apple
     std::vector<Point2D> apples = map.apples();
-    Point2D headPos = snake.head().pos();
-    //Point2D closestApple;
-    //double minDist = -1;
-    //for (size_t i = 0; i < apples.size(); ++i)
-    //{
-    //    double d = headPos.squaredDist(apples[i]);
-    //    if( minDist < 0 or d < minDist)
-    //    {
-    //        minDist = d;
-    //        closestApple = apples[i];
-    //    }
-    //}
 
-    //// Sort apples
-    std::vector<Point2D> headToApples = apples;
-    for (size_t i = 0; i < headToApples.size(); i++)
-    {
-      headToApples[i].x -= headPos.x;
-      headToApples[i].y -= headPos.y;
-    }
+    // Sort apples
+    sortApples(apples, snake.head().pos());
 
-    std::sort(headToApples.begin(), headToApples.end(), compareApples);
-
-    for (size_t i = 0; i < headToApples.size(); i++)
-    {
-      headToApples[i].x += headPos.x;
-      headToApples[i].y += headPos.y;
-    }
-
+    // Astar
     direction dir = direction::none;
-    for (size_t i = 0; i < headToApples.size(); i++)
+    for (size_t i = 0; i < apples.size(); i++)
     {
-      dir = astar(map, headPos, headToApples[i]);
+      dir = astar(map, snake.head().pos(), apples[i]);
       if(dir != direction::none)
         return dir;
     }
 
-    // astar failed; backup strat
-    Point2D pLeft(headPos.x, headPos.y-1);
-    Point2D pRight(headPos.x, headPos.y+1);
-    Point2D pDown(headPos.x+1, headPos.y);
-    Point2D pUp(headPos.x-1, headPos.y);
+    // Astar failed; backup strat
+    Point2D pLeft(snake.head().pos().x, snake.head().pos().y-1);
+    Point2D pRight(snake.head().pos().x, snake.head().pos().y+1);
+    Point2D pDown(snake.head().pos().x+1, snake.head().pos().y);
+    Point2D pUp(snake.head().pos().x-1, snake.head().pos().y);
 
     size_t nLeft = map.computeFreeArea(pLeft);
     size_t nRight = map.computeFreeArea(pRight);

@@ -21,6 +21,7 @@ private:
   Snake snake_;
   direction input_;
   Clock clock_;
-  Window window_;
+  Window* window_;
   double timeStep_;
+  bool displayWindow_;
 };

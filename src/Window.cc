@@ -2,6 +2,14 @@
 #include "Enums.hh"
 #include <iostream>
 
+Window::Window():
+  window_(nullptr),
+  renderer_(nullptr),
+  pixelSize_(20),
+  scoreRect_({0, pixelSize_, 100, 20})
+{
+}
+
 Window::Window(const Map& map):
   window_(nullptr),
   renderer_(nullptr),

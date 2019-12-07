@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SDL.h>
+#include <bits/stdc++.h>
 
 #include "utils.hh"
 #include "Enums.hh"
@@ -115,4 +116,29 @@ bool pointInVector(std::vector<Point2D>& v, Point2D& p)
       return true;
   }
   return false;
+}
+
+void sortApples(std::vector<Point2D>& apples, const Point2D& headPos)
+{
+    for (size_t i = 0; i < apples.size(); i++)
+    {
+      apples[i].x -= headPos.x;
+      apples[i].y -= headPos.y;
+    }
+
+    std::sort(apples.begin(), apples.end(), compareApples);
+
+    for (size_t i = 0; i < apples.size(); i++)
+    {
+      apples[i].x += headPos.x;
+      apples[i].y += headPos.y;
+    }
+}
+
+bool compareApples(Point2D p0, Point2D p1)
+{
+  if (p0.x*p0.x+p0.y*p0.y < p1.x*p1.x+p1.y*p1.y)
+    return true;
+  else
+    return false;
 }

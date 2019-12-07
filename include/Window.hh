@@ -9,6 +9,7 @@
 class Window
 {
 public:
+  Window ();
   Window (const Map& map);
   void render(const Map& map, size_t score);
   ~Window ();
