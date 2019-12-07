@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <unordered_set>
 #include "Map.hh"
 #include "Point2D.hh"
 #include "utils.hh"

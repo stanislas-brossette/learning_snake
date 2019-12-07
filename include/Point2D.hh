@@ -1,5 +1,6 @@
 #pragma once
 #include "Enums.hh"
+#include <functional>
 
 struct Point2D
 {
@@ -12,4 +13,12 @@ struct Point2D
     void print();
     bool operator == (const Point2D& p) const;
     direction directionToGo(const Point2D& p) const;
+};
+
+template<> struct std::hash<Point2D>
+{
+  size_t operator()(const Point2D& p) const
+  {
+    return std::hash<int>()(p.x*10000+p.y);
+  }
 };

@@ -87,11 +87,11 @@ direction astar(Map& map, Point2D start, Point2D target)
 
   AstarNode* startNode = new AstarNode(start, target, nullptr);
   SortedList nodesToVisit(startNode);
-  std::vector<Point2D> visitedNodes;
+  std::unordered_set<Point2D> visitedNodes;
   while (nodesToVisit.top_ and not targetReached)
   {
     SortedListNode* currentNode = nodesToVisit.pop();
-    visitedNodes.push_back(currentNode->astarNode_->pos_);
+    visitedNodes.insert(currentNode->astarNode_->pos_);
     Point2D p = currentNode->astarNode_->pos_;
     std::vector<Point2D> neighbors;
     Point2D pUp(p.x,p.y-1);
@@ -104,12 +104,12 @@ direction astar(Map& map, Point2D start, Point2D target)
     neighbors.push_back(pLeft);
     for (size_t i = 0; i < neighbors.size(); i++)
     {
-      if(not pointInVector(visitedNodes, neighbors[i])
+      if(visitedNodes.find(neighbors[i]) == visitedNodes.end()
           and map.isFree(neighbors[i]))
       { 
         AstarNode* nodeToInsert = new AstarNode(neighbors[i], target, currentNode->astarNode_);
         nodesToVisit.insertSorted(nodeToInsert);
-        visitedNodes.push_back(neighbors[i]);
+        visitedNodes.insert(neighbors[i]);
         if(neighbors[i] == target)
         {
           targetReached = true;
