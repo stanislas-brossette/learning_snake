@@ -6,7 +6,7 @@ Game::Game()
   : snake_(direction::right, Point2D(5,5)),
     map_(90,50,27),
     clock_(),
-    frequency_(0.18),
+    timeStep_(0.18),
     window_(map_)
 {
 }
@@ -40,7 +40,7 @@ void Game::runContinuous()
 
   while(snake_.isAlive())
   {
-      if(clock_.duration() > frequency_)
+      if(clock_.duration() > timeStep_)
       {
           clock_.reset();
           std::vector<Point2D> allPoints = snake_.getAllPoints();
@@ -65,10 +65,10 @@ size_t Game::runAgent(Agent* agent)
     std::cout << "agent: " << agent->name << std::endl;
     direction input;
     size_t score = 0;
-    frequency_ = 0.02;
+    timeStep_ = 0.02;
     while(snake_.isAlive())
     {
-        if(clock_.duration() > frequency_)
+        if(clock_.duration() > timeStep_)
         {
             clock_.reset();
             std::vector<Point2D> allPoints = snake_.getAllPoints();

@@ -22,5 +22,5 @@ private:
   direction input_;
   Clock clock_;
   Window window_;
-  double frequency_;
+  double timeStep_;
 };
