@@ -108,8 +108,12 @@ bool Map::isFree(const Point2D& p) const
 size_t Map::computeFreeArea(const Point2D& p0) const
 {
   std::vector<Point2D> visitedNodes;
+  std::unordered_set<Point2D> visitedNodesSet;
   if(isFree(p0))
+  {
       visitedNodes.push_back(p0);
+      visitedNodesSet.insert(p0);
+  }
   else
       return 0;
 
@@ -128,10 +132,11 @@ size_t Map::computeFreeArea(const Point2D& p0) const
       neighbors.push_back(pLeft);
       for (size_t i = 0; i < neighbors.size(); i++)
       {
-        if(not pointInVector(visitedNodes, neighbors[i])
+        if(visitedNodesSet.find(neighbors[i]) == visitedNodesSet.end()
             and isFree(neighbors[i]))
         {
           visitedNodes.push_back(neighbors[i]);
+          visitedNodesSet.insert(neighbors[i]);
         }
       }
       ++i;

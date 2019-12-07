@@ -80,29 +80,6 @@ direction getInput(direction& res)
     else if( (char) ch == '8' || ch == 259 || (char) ch == 'w')
       res = direction::up;
 
-    //switch( (char) ch)
-    //{
-    //  case '4':
-    //    res = direction::left;
-    //    break;
-    //  case '6':
-    //    res = direction::right;
-    //    break;
-    //  case '2':
-    //    res = direction::down;
-    //    break;
-    //  case '5':
-    //    res = direction::down;
-    //    break;
-    //  case '8':
-    //    res = direction::up;
-    //    break;
-    //}
-    //while (ch != 'q') {
-    //    ch = getch();
-    //printw("You typed: '%c' which is ASCII %d\n", (char) ch, ch);
-    //}
-
     /* Cleanup time */
     endwin();
     return res;

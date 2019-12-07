@@ -3,6 +3,7 @@
 #include <vector>
 #include <random>
 #include <string>
+#include <unordered_set>
 #include "Enums.hh"
 #include "Point2D.hh"
 
