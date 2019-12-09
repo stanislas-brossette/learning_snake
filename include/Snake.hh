@@ -16,9 +16,11 @@ public:
     void show();
     std::vector<Point2D> getAllPoints();
     Head head(){return head_;};
+    int size() const {return size_;};
 
 
 private:
     bool alive_;
     Head head_;
+    int size_;
 };
