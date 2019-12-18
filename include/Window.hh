@@ -15,7 +15,7 @@ public:
   ~Window ();
 
 private:
-	SDL_Window *window_;
+  SDL_Window *window_;
   SDL_Renderer *renderer_;
   TTF_Font *font_;
   int pixelSize_;

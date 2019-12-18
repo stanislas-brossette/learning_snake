@@ -6,6 +6,7 @@ enum direction
     left,
     up,
     down,
+    exitGame,
     none
 };
 

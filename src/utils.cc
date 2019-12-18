@@ -48,6 +48,8 @@ direction getInputLoopSDL(direction& res, bool& exit)
             res = direction::up;
         else if(keyName == "Left" or keyName == "H")
             res = direction::left;
+        else if(keyName == "Escape")
+            res = direction::exitGame;
         else
             res = direction::none;
       }

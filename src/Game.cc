@@ -44,6 +44,8 @@ void Game::runContinuous()
 
   while(snake_.isAlive())
   {
+    if(input == direction::exitGame)
+        break;
     if(clock_.duration() > timeStep_)
     {
       clock_.reset();
@@ -66,12 +68,17 @@ size_t Game::runAgent(Agent* agent)
 {
     std::cout << "agent: " << agent->name << std::endl;
     direction input;
+    direction userInput;
+    bool exitThread = false;
+    std::thread inputThread(getInputLoopSDL, std::ref(userInput), std::ref(exitThread));
     size_t score = 0;
     timeStep_ = 0.02;
     if(not displayWindow_)
       timeStep_ = 0.0;
     while(snake_.isAlive())
     {
+      if(userInput == direction::exitGame)
+          break;
       if(clock_.duration() >= timeStep_)
       {
         clock_.reset();
@@ -85,6 +92,8 @@ size_t Game::runAgent(Agent* agent)
         snake_.move(map_);
       }
     }
+    exitThread = true;
+    inputThread.join();
     std::cout << "Agent scored: " << score << std::endl;
     std::cout << "GAME OVER\npress enter to exit" << std::endl;
     std::cin.get();
