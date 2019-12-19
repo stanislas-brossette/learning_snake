@@ -60,7 +60,8 @@ void Game::runContinuous()
   exitThread = true;
   inputThread.join();
   std::cout << "GAME OVER\npress enter to exit" << std::endl;
-  std::cin.get();
+  if (input != direction::exitGame)
+      std::cin.get();
   return;
 }
 
@@ -96,6 +97,7 @@ size_t Game::runAgent(Agent* agent)
     inputThread.join();
     std::cout << "Agent scored: " << score << std::endl;
     std::cout << "GAME OVER\npress enter to exit" << std::endl;
-    std::cin.get();
+    if (userInput != direction::exitGame)
+        std::cin.get();
     return score;
 }

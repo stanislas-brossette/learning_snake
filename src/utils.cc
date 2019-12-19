@@ -53,6 +53,11 @@ direction getInputLoopSDL(direction& res, bool& exit)
         else
             res = direction::none;
       }
+      else if (event.type == SDL_WINDOWEVENT)
+      {
+          if(event.window.event == SDL_WINDOWEVENT_CLOSE)
+              res = direction::exitGame;
+      }
     }
   }
 }
