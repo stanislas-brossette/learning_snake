@@ -7,21 +7,21 @@ Game::Game()
     map_(20,20,2),
     clock_(),
     timeStep_(0.18),
-    window_(nullptr),
+    //window_(nullptr),
     displayWindow_(true)
 {
     std::vector<Point2D> allPoints = snake_.getAllPoints();
     map_.update(allPoints);
-    if(displayWindow_)
-    {
-      window_ = new Window(map_);
-      window_->render(map_, allPoints.size());
-    }
+    //if(displayWindow_)
+    //{
+    //  window_ = new Window(map_);
+    //  window_->render(map_, allPoints.size());
+    //}
 }
 
 Game::~Game()
 {
-  delete window_;
+  //delete window_;
 }
 
 Transition Game::step(direction action)
@@ -35,8 +35,8 @@ Transition Game::step(direction action)
   snake_.move(map_);
   std::vector<Point2D> allPoints = snake_.getAllPoints();
   map_.update(allPoints);
-  if(displayWindow_)
-    window_->render(map_, allPoints.size());
+  //if(displayWindow_)
+  //  window_->render(map_, allPoints.size());
 
   getState(t.next_state);
   t.reward = snake_.size();
@@ -116,8 +116,8 @@ void Game::runContinuous()
       clock_.reset();
       std::vector<Point2D> allPoints = snake_.getAllPoints();
       map_.update(allPoints);
-      if(displayWindow_)
-        window_->render(map_, allPoints.size());
+      //if(displayWindow_)
+      //  window_->render(map_, allPoints.size());
       snake_.turn(input);
       snake_.move(map_);
     }
@@ -151,8 +151,8 @@ size_t Game::runAgent(Agent* agent)
         std::vector<Point2D> allPoints = snake_.getAllPoints();
         map_.update(allPoints);
         score = allPoints.size();
-        if(displayWindow_)
-          window_->render(map_, score);
+        //if(displayWindow_)
+        //  window_->render(map_, score);
         input = agent->decide(map_, snake_);
         snake_.turn(input);
         snake_.move(map_);
