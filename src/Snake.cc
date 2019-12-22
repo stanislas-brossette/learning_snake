@@ -35,6 +35,7 @@ void Snake::move(Map& map)
         case status::snake:
             alive_ = false;
             head_.follow(newHeadPos);
+            size_ = 0;
             break;
     }
 }
