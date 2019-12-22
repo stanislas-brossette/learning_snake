@@ -13,6 +13,7 @@ struct Point2D
     void print();
     bool operator == (const Point2D& p) const;
     direction directionToGo(const Point2D& p) const;
+    void normalize();
 };
 
 template<> struct std::hash<Point2D>

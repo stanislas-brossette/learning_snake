@@ -7,12 +7,16 @@
 #include "utils.hh"
 #include "Clock.hh"
 #include "Window.hh"
+#include "Transition.hh"
+#include "State.hh"
 
 class Game
 {
 public:
   Game ();
   virtual ~Game ();
+  Transition step(direction action);
+  State getState();
   void runStepByStep();
   void runContinuous();
   size_t runAgent(Agent* agent);

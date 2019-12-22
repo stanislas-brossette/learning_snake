@@ -93,7 +93,16 @@ std::string Map::print() const
 
 status Map::get(const Point2D& p) const
 {
-    return content_.at(p.x).at(p.y);
+    status s;
+    if (p.x < 0 || p.y < 0 || p.x >= height_ || p.y >= width_)
+    {
+      s = status::obstacle;
+    }
+    else
+    {
+      s = content_.at(p.x).at(p.y);
+    }
+    return s;
 }
 
 bool Map::isFree(const Point2D& p) const

@@ -12,3 +12,4 @@ direction getInputLoopSDL(direction& input, bool& exit);
 bool pointInVector(std::vector<Point2D>& v, Point2D& p);
 bool compareApples(Point2D p0, Point2D p1);
 void sortApples(std::vector<Point2D>& apples, const Point2D& head);
+Point2D directionToPoint2D(direction input);

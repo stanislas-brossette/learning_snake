@@ -126,3 +126,28 @@ bool compareApples(Point2D p0, Point2D p1)
   else
     return false;
 }
+
+Point2D directionToPoint2D(direction input)
+{
+  Point2D p;
+  switch(input)
+  {
+    case direction::right:
+      p.x = 1;
+      p.y = 0;
+      break;
+    case direction::left:
+      p.x = -1;
+      p.y = 0;
+      break;
+    case direction::up:
+      p.x = 0;
+      p.y = -1;
+      break;
+    case direction::down:
+      p.x = 0;
+      p.y = 1;
+      break;
+  }
+  return p;
+}

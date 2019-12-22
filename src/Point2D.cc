@@ -62,3 +62,10 @@ direction Point2D::directionToGo(const Point2D& p) const
     return direction::none;
   }
 }
+
+void Point2D::normalize()
+{
+  double norm = x*x+y*y;
+  x = x/norm;
+  y = y/norm;
+}
