@@ -1,6 +1,6 @@
 #pragma once
-#include "Enums.hh"
 #include <functional>
+#include "Enums.hh"
 
 struct Point2D
 {

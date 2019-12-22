@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ostream>
 #include <SDL.h>
 #include <bits/stdc++.h>
 
@@ -133,21 +134,105 @@ Point2D directionToPoint2D(direction input)
   switch(input)
   {
     case direction::right:
-      p.x = 1;
-      p.y = 0;
-      break;
-    case direction::left:
-      p.x = -1;
-      p.y = 0;
-      break;
-    case direction::up:
-      p.x = 0;
-      p.y = -1;
-      break;
-    case direction::down:
       p.x = 0;
       p.y = 1;
       break;
+    case direction::left:
+      p.x = 0;
+      p.y = -1;
+      break;
+    case direction::up:
+      p.x = -1;
+      p.y = 0;
+      break;
+    case direction::down:
+      p.x = 1;
+      p.y = 0;
+      break;
   }
   return p;
+}
+
+std::ostream &operator<<(std::ostream &os, direction const &d)
+{
+  switch(d)
+  {
+    case direction::right:
+      return os << "right";
+    case direction::left:
+      return os << "left";
+    case direction::up:
+      return os << "up";
+    case direction::down:
+      return os << "down";
+    case direction::none:
+      return os << "none";
+    case direction::exitGame:
+      return os << "exitGame";
+  }
+}
+
+std::ostream &operator<<(std::ostream &os, status const &s)
+{
+  switch(s)
+  {
+    case status::empty:
+      return os << " ";
+    case status::obstacle:
+      return os << "X";
+    case status::apple:
+      return os << "o";
+    case status::snake:
+      return os << "s";
+    case status::snake_head:
+      return os << "S";
+  }
+}
+
+std::ostream &operator<<(std::ostream &os, Point2D const &p) {
+    return os << "(" << p.x << "," << p.y << ")";
+}
+
+std::ostream &operator<<(std::ostream &os, std::vector<status> const &s)
+{
+  if(s.size() == 0)
+    return os << "empty";
+  for (size_t i = 0; i < s.size(); i++)
+  {
+    os << s.at(i);
+  }
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, std::vector<std::vector<status> > const &s)
+{
+  if(s.size() == 0)
+    return os << "empty";
+  for (size_t i = 0; i < s.size(); i++)
+  {
+    os << s.at(i) << std::endl;
+  }
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, Map &m)
+{
+  return os << m.content();
+}
+
+std::ostream &operator<<(std::ostream &os, State &s)
+{
+  os << "directionHead: " << s.directionHead << std::endl;
+  os << "directionApple: " << s.directionApple << std::endl;
+  os << "lengthSnake: " << s.lengthSnake << std::endl;
+  os << "view: \n" << s.view << std::endl;
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, Transition &t)
+{
+  os << "state: \n" << t.state << std::endl;
+  os << "action: " << t.action << std::endl;
+  os << "next_state: \n" << t.next_state << std::endl;
+  os << "reward: " << t.reward << std::endl;
 }

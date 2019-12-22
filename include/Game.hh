@@ -16,7 +16,7 @@ public:
   Game ();
   virtual ~Game ();
   Transition step(direction action);
-  State getState();
+  void getState(State& s);
   void runStepByStep();
   void runContinuous();
   size_t runAgent(Agent* agent);

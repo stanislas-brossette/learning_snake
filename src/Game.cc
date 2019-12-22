@@ -1,6 +1,6 @@
-#include "Game.hh"
 #include <thread>
 #include <ctime>
+#include "Game.hh"
 
 Game::Game()
   : snake_(direction::right, Point2D(5,5)),
@@ -10,8 +10,13 @@ Game::Game()
     window_(nullptr),
     displayWindow_(true)
 {
+    std::vector<Point2D> allPoints = snake_.getAllPoints();
+    map_.update(allPoints);
     if(displayWindow_)
+    {
       window_ = new Window(map_);
+      window_->render(map_, allPoints.size());
+    }
 }
 
 Game::~Game()
@@ -21,8 +26,9 @@ Game::~Game()
 
 Transition Game::step(direction action)
 {
+  std::cout << "========================================================" << std::endl;
   Transition t;
-  t.state = getState();
+  getState(t.state);
   t.action = action;
 
   snake_.turn(action);
@@ -32,21 +38,21 @@ Transition Game::step(direction action)
   if(displayWindow_)
     window_->render(map_, allPoints.size());
 
-  t.next_state = getState();
+  getState(t.next_state);
   t.reward = snake_.size();
+  std::cout << t << std::endl;
+  std::cout << "========================================================" << std::endl;
   return t;
 }
 
-State Game::getState()
+void Game::getState(State& s)
 {
-  State s;
   s.lengthSnake = snake_.size();
   s.directionHead = directionToPoint2D(snake_.head().getDirection());
   // Find closest apple
   std::vector<Point2D> apples = map_.apples();
   sortApples(apples, snake_.head().pos());
-  s.directionApple = Point2D(snake_.head().pos().x - apples[0].x, snake_.head().pos().y - apples[0].y);
-  s.directionApple.normalize();
+  s.directionApple = Point2D(apples[0].x - snake_.head().pos().x, apples[0].y - snake_.head().pos().y);
 
   //get view
   size_t view_distance = 4;
@@ -63,7 +69,6 @@ State Game::getState()
       s.view[i][j] = stat;
     }
   }
-  return s;
 }
 
 void Game::runStepByStep()
